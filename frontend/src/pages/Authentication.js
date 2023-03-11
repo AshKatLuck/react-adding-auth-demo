@@ -32,7 +32,7 @@ export async function action({ request }) {
   });
   console.log(response);
   if (response.status === 422 || response.status === 401) {
-    return response();
+    return response;
   }
   if (!response.ok) {
     return json({ message: "Could not authenticate user" }, { status: 500 });
