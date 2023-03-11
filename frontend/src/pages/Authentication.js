@@ -30,12 +30,15 @@ export async function action({ request }) {
     },
     body: JSON.stringify(authData),
   });
-  console.log(response);
+  // console.log(response);
   if (response.status === 422 || response.status === 401) {
     return response;
   }
   if (!response.ok) {
     return json({ message: "Could not authenticate user" }, { status: 500 });
   }
+  const resData = await response.json();
+  const token = resData.token;
+  localStorage.setItem("token", token);
   return redirect("/");
 }
